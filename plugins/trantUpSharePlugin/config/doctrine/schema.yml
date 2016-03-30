@@ -1,0 +1,26 @@
+FilesToShare:
+  actAs: [Timestampable]
+  columns:
+     file_name:
+       type: string(255)
+     email_sender: string(255)
+     message: string(1000)
+     times_downloads: integer
+     user_id: { type: integer(11), notnull: false }
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+      
+EmailsToSend:
+  actAs: [Timestampable]
+  columns:
+    file_id: { type: integer, notnull: true }
+    email_reciver: string(255)
+    downloaded: boolean
+  relations:
+    FilesToShare:
+      class: FilesToShare
+      local: file_id
+      onDelete: CASCADE    
